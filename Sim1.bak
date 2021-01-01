@@ -4,8 +4,8 @@ Label Root
 	Son: MODEL
 	Label MODEL
 	{
-		Var: c
 		Var: X
+		Var: c
 
 	}
 
@@ -18,8 +18,8 @@ DATA
 Object: Root C	1
 
 Object: MODEL C	1
-Var: c 0 n + n n
 Var: X 1 s + n p	-9.99726659102912
+Var: c 0 n + n n
 
 SIM_NUM 1
 SEED 2
@@ -37,11 +37,13 @@ Object_MODEL
 (no description available)
 END_DESCRIPTION
 
-Variable_c
+Variable_X
 (no description available)
+_INIT_
+All 1 instances equal to 0.
 END_DESCRIPTION
 
-Variable_X
+Variable_c
 (no description available)
 END_DESCRIPTION
 
