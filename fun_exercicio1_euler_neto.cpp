@@ -9,12 +9,8 @@ MODELBEGIN
 
 // insert your equations here, between the MODELBEGIN and MODELEND words
 
-
 EQUATION("X")
-RESULT(VL("X",1)+V("c"))
-
-EQUATION("c")
-RESULT(norm(0,1))
+RESULT(VL("X",1)+norm(0,1))
 
 MODELEND
 
