@@ -33,10 +33,10 @@ Var: X_Ave 0 s + n n
 Var: X_Sum 0 s + n n
 Var: X_Max 0 s + n n
 Var: Share_Sum 0 s + n n
-Var: Leader 0 s + n p
+Var: Leader 0 s + n n
 
 Object: FIRM C	10
-Var: X 1 s + n n	0	0	0	0	0	0	0	0	0	0
+Var: X 1 s + n p	0	0	0	0	0	0	0	0	0	0
 Var: X_Share 0 s + n n
 
 SIM_NUM 1

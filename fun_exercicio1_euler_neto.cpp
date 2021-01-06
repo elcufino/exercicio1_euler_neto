@@ -51,7 +51,7 @@ EQUATION("X_Share") //Marketshare
 RESULT((V("X")/V("X_Sum")))
 
 
-EQUATION("Share_Sum") //Soma de Marketshare (sempre=1)
+EQUATION("Share_Sum") //Soma de Marketshare
 v[0]=0;
 CYCLE(cur, "FIRM")
 {
@@ -62,16 +62,16 @@ RESULT(v[0])
 
 
 EQUATION("Leader") //Who is the boss?
-v[0]=0;
-v[1]=0;
-v[2]=1;
+v[0]=0; //Share do campeão
+v[1]=0; //Token de posição
+v[2]=1; //Token de campeão
 CYCLE(cur, "FIRM")
 {
 	v[3]=VS(cur,"X_Share");
-	if(v[3]<v[0])
-	{v[2]=v[2]+1;}
+	if(v[3]<v[0]) 
+	{v[2]=v[2]+1;} //Challenger perde e aumenta token do campeão
 	else
-	{v[0]=v[3] ; v[1]=v[1]+v[2] ; v[2]=1;}
+	{v[0]=v[3] ; v[1]=v[1]+v[2] ; v[2]=1;} //Challenger ganha, vira novo campeão, transfere tokens do campeão para posição e reinicia o streak de vitórias
 }
 RESULT(v[1])
 
