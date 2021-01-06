@@ -8,12 +8,15 @@ Label Root
 		Label FIRM
 		{
 			Var: X
+			Var: X_Share
 
 		}
 
 		Var: X_Ave
 		Var: X_Sum
 		Var: X_Max
+		Var: Share_Sum
+		Var: Leader
 
 	}
 
@@ -26,12 +29,15 @@ DATA
 Object: Root C	1
 
 Object: SECTOR C	1
-Var: X_Ave 0 s + n p
-Var: X_Sum 0 s + n p
-Var: X_Max 0 s + n p
+Var: X_Ave 0 s + n n
+Var: X_Sum 0 s + n n
+Var: X_Max 0 s + n n
+Var: Share_Sum 0 s + n n
+Var: Leader 0 s + n p
 
 Object: FIRM C	10
-Var: X 1 s + n p	0	0	0	0	0	0	0	0	0	0
+Var: X 1 s + n n	0	0	0	0	0	0	0	0	0	0
+Var: X_Share 0 s + n n
 
 SIM_NUM 1
 SEED 1
@@ -53,14 +59,32 @@ END_DESCRIPTION
 
 Variable_X_Ave
 (no description available)
+_INIT_
+
 END_DESCRIPTION
 
 Variable_X_Sum
 (no description available)
+_INIT_
+
 END_DESCRIPTION
 
 Variable_X_Max
 (no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_Share_Sum
+(no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_Leader
+(no description available)
+_INIT_
+
 END_DESCRIPTION
 
 Object_FIRM
@@ -73,6 +97,12 @@ Variable_X
 (no description available)
 _INIT_
 All 10 instances equal to 0.
+END_DESCRIPTION
+
+Variable_X_Share
+(no description available)
+_INIT_
+
 END_DESCRIPTION
 
 

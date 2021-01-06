@@ -1,1 +1,1 @@
-X X_Ave X_Max X_Sum
+Leader Share_Sum X X_Ave X_Max X_Share X_Sum

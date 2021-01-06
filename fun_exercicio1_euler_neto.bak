@@ -9,11 +9,11 @@ MODELBEGIN
 
 // insert your equations here, between the MODELBEGIN and MODELEND words
 
-EQUATION("X")
+EQUATION("X") //X
 RESULT(VL("X",1)+uniform(0,1))
 
 
-EQUATION("X_Sum")
+EQUATION("X_Sum") //Soma
 v[0]=0;
 CYCLE(cur, "FIRM")
 {
@@ -23,19 +23,21 @@ CYCLE(cur, "FIRM")
 RESULT(v[0])
 
 
-EQUATION("X_Ave")
+EQUATION("X_Ave") //Média
 v[0]=0;
 v[1]=0;
+v[2]=0;
 CYCLE(cur, "FIRM")
 {
-	v[2]=VS(cur,"X");
-	v[0]=v[0]+v[2];
+	v[3]=VS(cur,"X");
+	v[0]=v[0]+v[3];
 	v[1]=v[1]+1;
 }
-RESULT(v[0]/v[1])
+if(v[1]==0)	v[2]=0; else v[2]=v[0]/v[1]
+RESULT(v[2])
 
 
-EQUATION("X_Max")
+EQUATION("X_Max") //Máximo
 v[0]=0;
 CYCLE(cur, "FIRM")
 {
@@ -43,6 +45,35 @@ CYCLE(cur, "FIRM")
 	if(v[1]>=v[0]) 	v[0]=v[1]; else v[0]=v[0];
 }
 RESULT(v[0])
+
+
+EQUATION("X_Share") //Marketshare
+RESULT((V("X")/V("X_Sum")))
+
+
+EQUATION("Share_Sum") //Soma de Marketshare (sempre=1)
+v[0]=0;
+CYCLE(cur, "FIRM")
+{
+	v[1]=VS(cur,"X_Share");
+	v[0]=v[0]+v[1];
+}
+RESULT(v[0])
+
+
+EQUATION("Leader") //Who is the boss?
+v[0]=0;
+v[1]=0;
+v[2]=1;
+CYCLE(cur, "FIRM")
+{
+	v[3]=VS(cur,"X_Share");
+	if(v[3]<v[0])
+	{v[2]=v[2]+1;}
+	else
+	{v[0]=v[3] ; v[1]=v[1]+v[2] ; v[2]=1;}
+}
+RESULT(v[1])
 
 
 MODELEND
