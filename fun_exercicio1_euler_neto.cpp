@@ -7,73 +7,97 @@
 
 MODELBEGIN
 
-// insert your equations here, between the MODELBEGIN and MODELEND words
 
-EQUATION("X") //X
+// X
+EQUATION("X")
 RESULT(VL("X",1)+uniform(0,1))
 
 
-EQUATION("X_Sum") //Soma
-v[0]=0;
-CYCLE(cur, "FIRM")
-{
-	v[1]=VS(cur,"X");
-	v[0]=v[0]+v[1];
-}
+// SOMA
+EQUATION("X_Sum")
+	v[0]=0;
+	CYCLE(cur, "FIRM")
+		{
+		v[1]=VS(cur,"X");
+		v[0]=v[0]+v[1];
+		}
 RESULT(v[0])
 
 
-EQUATION("X_Ave") //Média
-v[0]=0;
-v[1]=0;
-v[2]=0;
-CYCLE(cur, "FIRM")
-{
-	v[3]=VS(cur,"X");
-	v[0]=v[0]+v[3];
-	v[1]=v[1]+1;
-}
-if(v[1]==0)	v[2]=0; else v[2]=v[0]/v[1]
+// MÉDIA
+EQUATION("X_Ave")
+	v[0]=0;
+	v[1]=0;
+	v[2]=0;
+	CYCLE(cur, "FIRM")
+		{
+		v[3]=VS(cur,"X");
+		v[0]=v[0]+v[3];
+		v[1]=v[1]+1;
+		}
+	if(v[1]==0)	v[2]=0; else v[2]=v[0]/v[1]
 RESULT(v[2])
 
 
-EQUATION("X_Max") //Máximo
-v[0]=0;
-CYCLE(cur, "FIRM")
-{
-	v[1]=VS(cur,"X");
-	if(v[1]>=v[0]) 	v[0]=v[1]; else v[0]=v[0];
-}
+// MÁXIMO
+EQUATION("X_Max")
+	v[0]=0;
+	CYCLE(cur, "FIRM")
+		{
+		v[1]=VS(cur,"X"); 
+		if(v[1]>=v[0]) 	v[0]=v[1]; else v[0]=v[0];
+		}
 RESULT(v[0])
 
 
-EQUATION("X_Share") //Marketshare
-RESULT((V("X")/V("X_Sum")))
+// MARKETSHARE
+EQUATION("X_Share")
+RESULT((V("X")/V("X_Sum"))) 
 
 
-EQUATION("Share_Sum") //Soma de Marketshare
-v[0]=0;
-CYCLE(cur, "FIRM")
-{
-	v[1]=VS(cur,"X_Share");
-	v[0]=v[0]+v[1];
-}
+// SOMA DE MARKETSHARE
+EQUATION("Share_Sum")
+	v[0]=0;
+	CYCLE(cur, "FIRM")
+		{
+		v[1]=VS(cur,"X_Share");
+		v[0]=v[0]+v[1];
+		}
 RESULT(v[0])
 
 
-EQUATION("Leader") //Who is the boss?
-v[0]=0; //Share do campeão
-v[1]=0; //Token de posição
-v[2]=1; //Token de campeão
-CYCLE(cur, "FIRM")
-{
-	v[3]=VS(cur,"X_Share");
-	if(v[3]<v[0]) 
-	{v[2]=v[2]+1;} //Challenger perde e aumenta token do campeão
-	else
-	{v[0]=v[3] ; v[1]=v[1]+v[2] ; v[2]=1;} //Challenger ganha, vira novo campeão, transfere tokens do campeão para posição e reinicia o streak de vitórias
-}
+// EMPRESA LÍDER
+EQUATION("Leader")
+/*	v[0]=0;
+	v[1]=0;
+	v[2]=1;
+	CYCLE(cur, "FIRM")
+		{
+		v[3]=VS(cur,"X_Share");
+		if(v[3]<v[0]) 
+		{v[2]=v[2]+1;}
+		else
+		{v[0]=v[3] ; v[1]=v[1]+v[2] ; v[2]=1;}
+		}
 RESULT(v[1])
+*/
+RESULT(SEARCH_INST(SEARCH_CND("X", V("X_Max"))))
+
+// RANKING
+EQUATION("Rank") // for each Xi, how many X|(Xj >= Xi, i=j). If n Xi values equal, both will be rank n+1. Ex: {100, 50, 30, 30, 25} have ranks {1, 2, 5, 5, 3}.
+	v[0]=0;
+	CYCLE(cur, "FIRM")
+		{
+		v[1]=VS(cur, "X_Share");
+		CYCLE(cur1, "FIRM")
+			{
+			v[2]=VS(cur1,"X_Share");
+			if(v[2]>=v[1]) 	v[0]=v[0]+1; else v[0]=v[0];
+			}
+		WRITES(cur, "firm_rank", v[0]);
+		v[0]=0;
+		}
+RESULT(1)
 
 
 MODELEND
