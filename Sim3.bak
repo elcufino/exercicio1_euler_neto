@@ -10,6 +10,8 @@ Label Root
 			Var: X
 			Var: X_Share
 			Param: firm_rank
+			Var: Price
+			Var: Quality
 
 		}
 
@@ -19,6 +21,9 @@ Label Root
 		Var: Share_Sum
 		Var: Leader
 		Var: Rank
+		Param: epd
+		Param: eqd
+		Param: epm
 
 	}
 
@@ -36,15 +41,20 @@ Var: X_Sum 0 s + n n
 Var: X_Max 0 s + n n
 Var: Share_Sum 0 s + n n
 Var: Leader 0 s + n n
-Var: Rank 0 s + n n
+Var: Rank 0 n + n n
+Param: epd 0 n + n n	-1
+Param: eqd 0 n + n n	0.5
+Param: epm 0 n + n n	0.5
 
 Object: FIRM C	10
-Var: X 1 s + n n	0	0	0	0	0	0	0	0	0	0
-Var: X_Share 0 s + n p
-Param: firm_rank 0 s + n n	0	0	0	0	0	0	0	0	0	0
+Var: X 1 s + n n	26.3963189587327	29.7179823818908	24.6850108661899	31.4338075048012	33.5837802453798	30.2669592072038	35.5508622610778	33.9898335370818	34.0609957328056	27.2662800113458
+Var: X_Share 2 s + n p	0.0859949878714731	0.0865818722526819	0.0968164363557927	0.0977991073156017	0.0804198196484855	0.0799480071039182	0.102406320341697	0.103445383667081	0.109410587870026	0.108611241959637	0.0986049151019512	0.0966265684613853	0.115819026650698	0.116994570595591	0.110733444589164	0.108671961790216	0.110965279647975	0.112088490374744	0.0888291819227374	0.0892327964791434
+Param: firm_rank 0 s + n n	9	7	10	5	4	6	1	3	2	8
+Var: Price 1 s + n n	0.986581872252682	0.997799107315602	0.979948007103918	1.00344538366708	1.00861124195964	0.996626568461385	1.01699457059559	1.00867196179022	1.01208849037474	0.989232796479143
+Var: Quality 1 s + n n	33.8060560452128	40.438165656466	30.3900737252759	43.8641696259354	48.1589492488	41.5372918459463	52.08472995156	48.9709951123734	49.1099029752364	35.5433272262125
 
 SIM_NUM 1
-SEED 1
+SEED 2
 MAX_STEP 100
 EQUATION fun_exercicio1_euler_neto.cpp
 MODELREPORT report_Sim1.html
@@ -97,6 +107,24 @@ _INIT_
 
 END_DESCRIPTION
 
+Parameter_epd
+(no description available)
+_INIT_
+All 1 instances equal to 0.
+END_DESCRIPTION
+
+Parameter_eqd
+(no description available)
+_INIT_
+All 1 instances equal to 0.
+END_DESCRIPTION
+
+Parameter_epm
+(no description available)
+_INIT_
+All 1 instances equal to 0.5.
+END_DESCRIPTION
+
 Object_FIRM
 (no description available)
 _INIT_
@@ -106,19 +134,31 @@ END_DESCRIPTION
 Variable_X
 (no description available)
 _INIT_
-All 10 instances equal to 0.
+All 10 instances equal to 10.
 END_DESCRIPTION
 
 Variable_X_Share
 (no description available)
 _INIT_
-
+All 10 instances equal to 0.1.
 END_DESCRIPTION
 
 Parameter_firm_rank
 (no description available)
 _INIT_
 All 10 instances equal to 0.
+END_DESCRIPTION
+
+Variable_Price
+(no description available)
+_INIT_
+All 10 instances equal to 1.
+END_DESCRIPTION
+
+Variable_Quality
+(no description available)
+_INIT_
+All 10 instances equal to 1.
 END_DESCRIPTION
 
 

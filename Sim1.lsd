@@ -8,8 +8,10 @@ Label Root
 		Label FIRM
 		{
 			Var: X
-			Var: X_Share
 			Param: firm_rank
+			Var: Price
+			Var: Quality
+			Var: X_Share
 
 		}
 
@@ -19,6 +21,9 @@ Label Root
 		Var: Share_Sum
 		Var: Leader
 		Var: Rank
+		Param: elast_marketshare_price
+		Param: elast_price_demand
+		Param: elast_quality_demand
 
 	}
 
@@ -36,15 +41,20 @@ Var: X_Sum 0 s + n n
 Var: X_Max 0 s + n n
 Var: Share_Sum 0 s + n n
 Var: Leader 0 s + n n
-Var: Rank 0 n + n n
+Var: Rank 0 s + n n
+Param: elast_marketshare_price 0 n + n n	1
+Param: elast_price_demand 0 n + n n	-1
+Param: elast_quality_demand 0 n + n n	0.5
 
 Object: FIRM C	10
-Var: X 1 s + n n	0	0	0	0	0	0	0	0	0	0
-Var: X_Share 0 s + n p
-Param: firm_rank 0 s + n n	0	0	0	0	0	0	0	0	0	0
+Var: X 1 s + n n	29.6409815189162	28.2554447867089	32.9219513683202	30.9081497398487	28.1424281275408	27.8711007998938	31.2633815437059	32.8240925255101	33.7908485491127	26.7203858267042
+Param: firm_rank 0 s + n n	6	7	2	5	8	9	4	3	1	10
+Var: Price 1 s + n n	0.995785144681814	0.989487458792422	1.01036252115845	1.00174695626426	0.99433338615619	0.993423897257457	1.00374767417945	1.00891351673277	1.01263021826756	0.989569226509632
+Var: Quality 1 s + n n	49.273533327196	46.4898644910027	55.8646277789572	51.819793392226	46.2735230273939	45.7290493943025	52.5342584357708	55.6660120844857	57.6069575347605	43.4199101064277
+Var: X_Share 2 s + n p	0.0980389714162882	0.0957851446818143	0.0934562420623903	0.0894874587924229	0.108890936931605	0.110362521158446	0.10223019122837	0.101746956264259	0.0930824340287164	0.0943333861561903	0.092185005847984	0.0934238972574567	0.103405137498023	0.103747674179446	0.108567264104274	0.108913516732773	0.111764856130841	0.11263021826756	0.0883789607515074	0.089569226509632
 
 SIM_NUM 1
-SEED 1
+SEED 5
 MAX_STEP 100
 EQUATION fun_exercicio1_euler_neto.cpp
 MODELREPORT report_Sim1.html
@@ -97,6 +107,24 @@ _INIT_
 
 END_DESCRIPTION
 
+Parameter_elast_marketshare_price
+(no description available)
+_INIT_
+All 1 instances equal to 1.
+END_DESCRIPTION
+
+Parameter_elast_price_demand
+(no description available)
+_INIT_
+All 1 instances equal to -1.
+END_DESCRIPTION
+
+Parameter_elast_quality_demand
+(no description available)
+_INIT_
+All 1 instances equal to 1.
+END_DESCRIPTION
+
 Object_FIRM
 (no description available)
 _INIT_
@@ -106,19 +134,31 @@ END_DESCRIPTION
 Variable_X
 (no description available)
 _INIT_
-All 10 instances equal to 0.
-END_DESCRIPTION
-
-Variable_X_Share
-(no description available)
-_INIT_
-
+All 10 instances equal to 10.
 END_DESCRIPTION
 
 Parameter_firm_rank
 (no description available)
 _INIT_
-All 10 instances equal to 0.
+All 10 instances equal to 1.
+END_DESCRIPTION
+
+Variable_Price
+(no description available)
+_INIT_
+All 10 instances equal to 1.
+END_DESCRIPTION
+
+Variable_Quality
+(no description available)
+_INIT_
+All 10 instances equal to 10.
+END_DESCRIPTION
+
+Variable_X_Share
+(no description available)
+_INIT_
+All 10 instances equal to 0.1.
 END_DESCRIPTION
 
 

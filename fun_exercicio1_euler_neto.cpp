@@ -9,8 +9,54 @@ MODELBEGIN
 
 
 // X
+/*
 EQUATION("X")
 RESULT(VL("X",1)+uniform(0,1))
+*/
+
+
+// PREÇO
+EQUATION("Price")
+v[0]=VL("X_Share",1);
+v[1]=VL("X_Share",2);
+v[2]=VL("Price",1);
+RESULT(V("elast_marketshare_price") * (v[0]-v[1]) + v[2])
+
+
+// QUALIDADE
+EQUATION("Quality")
+v[0]=VL("Quality",1);
+v[1]=norm(0,1);
+if(v[1]>0) v[0]=v[0]+v[1]; v[0]=v[0]
+RESULT(v[0])
+
+
+// VENDAS v.1 - Vendas = A + B*Preço + C*Qualidade -> Vt = Vt-1 + B*delta preço + C*delta qualidade
+EQUATION("X")
+v[0]=V("Price");
+v[1]=VL("Price",1);
+v[2]=V("Quality");
+v[3]=VL("Quality",1);
+v[4]=VL("X",1);
+v[5]=V("elast_price_demand")*(v[0]-v[1]) + V("elast_quality_demand")*(v[2]-v[3]) + v[4];
+RESULT(v[5])
+
+
+//VENDAS v.2 - Vendas a la Cobb-Douglas: X = P^epd*Qual^eqd - NUNCA ATIVE ESSE CÓDIGO, É HORRÍVEL DEMAIS PRA SER REAL
+/*
+EQUATION("X")
+v[0]=V("Price");
+v[1]=VL("Price",1);
+v[2]=V("Quality");
+v[3]=VL("Quality",1);
+v[4]=VL("X",1);
+v[5]=pow(v[0], V("elast_price_demand"));
+v[6]=pow(v[2], V("elast_quality_demand"));
+v[7]=pow(v[1], V("elast_price_demand"));
+v[8]=pow(v[3], V("elast_quality_demand"));
+v[9]=v[1]+v[5]*v[6]-v[7]*v[8];
+RESULT(v[9])
+*/
 
 
 // SOMA
@@ -68,23 +114,11 @@ RESULT(v[0])
 
 // EMPRESA LÍDER
 EQUATION("Leader")
-/*	v[0]=0;
-	v[1]=0;
-	v[2]=1;
-	CYCLE(cur, "FIRM")
-		{
-		v[3]=VS(cur,"X_Share");
-		if(v[3]<v[0]) 
-		{v[2]=v[2]+1;}
-		else
-		{v[0]=v[3] ; v[1]=v[1]+v[2] ; v[2]=1;}
-		}
-RESULT(v[1])
-*/
 RESULT(SEARCH_INST(SEARCH_CND("X", V("X_Max"))))
 
+
 // RANKING
-EQUATION("Rank") // for each Xi, how many X|(Xj >= Xi, i=j). If n Xi values equal, both will be rank n+1. Ex: {100, 50, 30, 30, 25} have ranks {1, 2, 5, 5, 3}.
+ EQUATION("Rank")
 	v[0]=0;
 	CYCLE(cur, "FIRM")
 		{
@@ -97,7 +131,23 @@ EQUATION("Rank") // for each Xi, how many X|(Xj >= Xi, i=j). If n Xi values equa
 		WRITES(cur, "firm_rank", v[0]);
 		v[0]=0;
 		}
+RESULT(1) 
+
+
+/*
+Mudar número de objetos
+
+EQUATION("EntryExit"
+	v[0]=V("switch_entry");
+	if(v[0]==1)
+		{
+		cur=SEARCH_CND("rank",10); //procure a ultima firma
+		DELETE(cur); //MATE
+		cur1=SEARCH_CND("rank", 5);
+		ADDOBJ_EX("FIRM",cur1); //adicione uma firma tomando por exemplo cur1
+		}
 RESULT(1)
+*/
 
 
 MODELEND
