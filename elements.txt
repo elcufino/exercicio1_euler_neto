@@ -1,2 +1,2 @@
-Leader Price Quality Rank Share_Sum X X_Ave X_Max X_Share X_Sum
+HHI_inv Leader Price Quality Rank Share_Sum X X_Ave X_Max X_Share X_Sum
 elast_marketshare_price elast_price_demand elast_quality_demand firm_rank rank switch_entry

@@ -1,10 +1,30 @@
 	
 Label Root
 {
-	Son: MODEL
-	Label MODEL
+	Son: SECTOR
+	Label SECTOR
 	{
-		Var: X
+		Son: FIRM
+		Label FIRM
+		{
+			Var: X
+			Param: firm_rank
+			Var: Price
+			Var: Quality
+			Var: X_Share
+
+		}
+
+		Var: X_Ave
+		Var: X_Sum
+		Var: X_Max
+		Var: Share_Sum
+		Var: Leader
+		Var: Rank
+		Param: elast_marketshare_price
+		Param: elast_price_demand
+		Param: elast_quality_demand
+		Var: HHI_inv
 
 	}
 
@@ -16,11 +36,27 @@ DATA
 
 Object: Root C	1
 
-Object: MODEL C	10
-Var: X 1 s + n p	-16.7483242219568	-4.24298057419693	-19.1907297384967	5.66060364422332	14.3908764599376	-6.15228932611064	17.3064965399707	10.8038796155039	19.2978014787109	-9.49991395222238
+Object: SECTOR C	1
+Var: X_Ave 0 s + n n
+Var: X_Sum 0 s + n n
+Var: X_Max 0 s + n n
+Var: Share_Sum 0 s + n n
+Var: Leader 0 s + n n
+Var: Rank 0 s + n n
+Param: elast_marketshare_price 0 n + n n	1
+Param: elast_price_demand 0 n + n n	-1
+Param: elast_quality_demand 0 n + n n	0.5
+Var: HHI_inv 0 s + n p
+
+Object: FIRM C	10
+Var: X 1 s + n n	10	10	10	10	10	10	10	10	10	10
+Param: firm_rank 0 s + n n	6	7	2	5	8	9	4	3	1	10
+Var: Price 1 s + n n	1	1	1	1	1	1	1	1	1	1
+Var: Quality 1 s + n n	50	50	50	50	50	50	50	50	50	50
+Var: X_Share 2 s + n n	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1
 
 SIM_NUM 1
-SEED 2
+SEED 5
 MAX_STEP 100
 EQUATION fun_exercicio1_euler_neto.cpp
 MODELREPORT report_Sim1.html
@@ -31,14 +67,104 @@ Object_Root
 (no description available)
 END_DESCRIPTION
 
-Object_MODEL
+Object_SECTOR
 (no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_X_Ave
+(no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_X_Sum
+(no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_X_Max
+(no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_Share_Sum
+(no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_Leader
+(no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Variable_Rank
+(no description available)
+_INIT_
+
+END_DESCRIPTION
+
+Parameter_elast_marketshare_price
+(no description available)
+_INIT_
+All 1 instances equal to 1.
+END_DESCRIPTION
+
+Parameter_elast_price_demand
+(no description available)
+_INIT_
+All 1 instances equal to -1.
+END_DESCRIPTION
+
+Parameter_elast_quality_demand
+(no description available)
+_INIT_
+All 1 instances equal to 1.
+END_DESCRIPTION
+
+Variable_HHI_inv
+(no description available)
+END_DESCRIPTION
+
+Object_FIRM
+(no description available)
+_INIT_
+
 END_DESCRIPTION
 
 Variable_X
 (no description available)
 _INIT_
-All 10 instances equal to 0.
+All 10 instances equal to 10.
+END_DESCRIPTION
+
+Parameter_firm_rank
+(no description available)
+_INIT_
+All 10 instances equal to 1.
+END_DESCRIPTION
+
+Variable_Price
+(no description available)
+_INIT_
+All 10 instances equal to 1.
+END_DESCRIPTION
+
+Variable_Quality
+(no description available)
+_INIT_
+All 10 instances equal to 50.
+END_DESCRIPTION
+
+Variable_X_Share
+(no description available)
+_INIT_
+All 10 instances equal to 0.1.
 END_DESCRIPTION
 
 
