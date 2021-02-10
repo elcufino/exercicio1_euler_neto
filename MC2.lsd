@@ -43,8 +43,8 @@ Var: X_Max 0 s + n n
 Var: Share_Sum 0 s + n n
 Var: Leader 0 s + n n
 Var: Rank 0 s + n n
-Param: elast_marketshare_price 0 n + n n	1
-Param: elast_price_demand 0 n + n n	-1
+Param: elast_marketshare_price 0 n + n n	0
+Param: elast_price_demand 0 n + n n	0
 Param: elast_quality_demand 0 n + n n	0.5
 Var: HHI_inv 0 s + n p
 
@@ -55,7 +55,7 @@ Var: Price 1 s + n n	1	1	1	1	1	1	1	1	1	1
 Var: Quality 1 s + n n	50	50	50	50	50	50	50	50	50	50
 Var: X_Share 2 s + n n	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1
 
-SIM_NUM 1
+SIM_NUM 10
 SEED 5
 MAX_STEP 100
 EQUATION fun_exercicio1_euler_neto.cpp
@@ -129,6 +129,8 @@ END_DESCRIPTION
 
 Variable_HHI_inv
 (no description available)
+_INIT_
+
 END_DESCRIPTION
 
 Object_FIRM
