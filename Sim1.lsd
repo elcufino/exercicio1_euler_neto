@@ -38,7 +38,7 @@ Object: Root C	1
 Object: SECTOR C	1
 Var: X_Ave 0 s + n n
 Var: X_Sum 0 s + n n
-Var: X_Max 0 s + n n
+Var: X_Max 0 s + d n
 Var: Share_Sum 0 s + n n
 Var: Leader 0 s + n n
 Var: Rank 0 s + n n

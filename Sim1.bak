@@ -24,7 +24,6 @@ Label Root
 		Param: elast_marketshare_price
 		Param: elast_price_demand
 		Param: elast_quality_demand
-		Var: HHI_inv
 
 	}
 
@@ -46,14 +45,13 @@ Var: Rank 0 s + n n
 Param: elast_marketshare_price 0 n + n n	1
 Param: elast_price_demand 0 n + n n	-1
 Param: elast_quality_demand 0 n + n n	0.5
-Var: HHI_inv 0 s + n p
 
 Object: FIRM C	10
 Var: X 1 s + n n	10	10	10	10	10	10	10	10	10	10
 Param: firm_rank 0 s + n n	6	7	2	5	8	9	4	3	1	10
 Var: Price 1 s + n n	1	1	1	1	1	1	1	1	1	1
 Var: Quality 1 s + n n	50	50	50	50	50	50	50	50	50	50
-Var: X_Share 2 s + n n	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1
+Var: X_Share 2 s + n p	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1	0.1
 
 SIM_NUM 1
 SEED 5
@@ -125,10 +123,6 @@ Parameter_elast_quality_demand
 (no description available)
 _INIT_
 All 1 instances equal to 1.
-END_DESCRIPTION
-
-Variable_HHI_inv
-(no description available)
 END_DESCRIPTION
 
 Object_FIRM
